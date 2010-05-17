@@ -1,0 +1,22 @@
+<html>
+<script>
+chrome.extension.onRequest.addListener(
+   function(request, sender, sendResponse) {
+      switch(request.action) {
+         case 'getName':
+            sendResponse(getNameFromStorage());
+            break;
+      }  
+   }
+);
+
+function getNameFromStorage() {
+    return getItem('name');
+}
+
+function getItem(key) { return getStorage().getItem(key); }
+function setItem(key, map) { return getStorage().setItem(key, map); }
+function removeItem(key) { return getStorage().removeItem(key); }
+function getStorage() { return window.localStorage; }
+</script>
+</html>

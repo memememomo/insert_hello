@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<style>
+  h1 { font-size:x-large; color:#C60; }
+  .body { width:100%; }
+  .content { width:100%; }
+  .option { width:100%; }
+  .username { float:left; }
+  .submit { float:left; }
+  .cancel { float:left; }
+</style>
+<script type="text/javascript">
+  function getItem(key) { return getStorage().getItem(key); }
+  function setItem(key, value) {  return getStorage().setItem(key, value);}
+  function removeItem(key) { return getStorage().removeItem(key); }
+  function getStorage() { return window.localStorage; }
+
+  function setName() {
+    var name = document.getElementById('name').value;
+    setItem('name', name);
+
+    document.getElementById("submit").disabled = true;
+    document.getElementById("clear").disabled = false;
+  }
+
+  function clearName() {
+    removeItem('name');
+    document.getElementById('name').value = null;
+    onChange();
+  }
+
+  function loadSettings() {
+    var name = getItem('name');
+    if (name == null) {
+       return ;
+    }
+
+    document.getElementById('clear').disabled = false;
+    document.getElementById('name').value = name;
+  }
+
+  function onChange() {
+    var name = document.getElementById('name').value;
+    if (name == null || name == "" || name == "undefined") {
+      document.getElementById('submit').disabled = true;
+      document.getElementById('clear').disabled = true;
+      return;
+    }
+    document.getElementById('submit').disabled = false;
+  }
+
+</script>
+<title>Insert Hello Message Option Page</title>
+<body onload="loadSettings();">
+  <center>
+    <div class="header"></div>
+    <center>
+      <div class="body">
+	<div class="content">
+	  <div class="title"><h1>Insert Hello Message Option Page</h1></div>
+	  <div class="option">
+	    <table class="account">
+	      <tr>
+		<td class="name">
+		  Username: <input id="name" type="text" name="name" onkeypress="onChange();"/>
+		</td>
+		<td class="submit">
+		  <input id="submit" type="submit" name="" value="save" disabled onclick="setName();"/>
+		</td>
+		<td class="cancel">
+		  <input id="clear" type="submit" name="" value="clear" disabled onclick="clearName();"/>
+		</td>
+	      </tr>
+	    </table>
+	  </div>
+	</div>
+      </div>
+    </center>
+  </center>
+</body>
+</html>
